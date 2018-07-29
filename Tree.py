@@ -27,21 +27,27 @@ class Node:
         else:
             self.data = data
 
-    def sum_node(self, sums):
-        sum = self.data
+    def sum_node(self):
+        my = self.data
+        left_sum = 0
+        right_sum = 0
         if self.left:
-            sum += self.left.sum_node(sums)
+            left_sum = self.left.sum_node()
+
         if self.right:
-            sum += self.right.sum_node(sums)
-        sums[self] = sum
-        return sum
+            right_sum = self.right.sum_node()
+
+        if (my + left_sum) == right_sum:
+            print('found edge ' + str(my) + "  " + str(self.right.data))
+        elif (my + right_sum) == left_sum:
+            print('found edge ' + str(my) + "  " + str(self.left.data))
+        return my+left_sum+right_sum
 
 root = Node(10)
-root.insert(11)
+root.insert(19)
 root.insert(9)
 root.print_node()
 
-sums = dict()
+root.sum_node()
 
-root.sum_node(sums)
-print sums
+
